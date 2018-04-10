@@ -1,8 +1,7 @@
 const router = require("express").Router();
-const artistRoutes = require("./artists");
-const submitRoutes = require("./submit");
+const userRoutes = require("./user");
 
 // Article routes
-router.use("/submit", submitRoutes);
+router.use(userRoutes);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 {
-  "name": "mern",
+  "name": "gallery-curator",
   "version": "1.0.0",
-  "description": "Mern Demo",
+  "description": "User populated art gallery and zero-inventory print shop.",
   "main": "server.js",
   "scripts": {
     "server": "node server.js",
@@ -11,17 +11,21 @@
     "deploy": "yarn build && git add . && git commit -m \"Building for production\" && git push heroku master",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Ian Goodnight",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^3.5.0",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
     "express": "^4.15.4",
+    "express-session": "^1.15.6",
     "mongoose": "^5.0.11",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
   }
 }
