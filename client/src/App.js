@@ -34,30 +34,27 @@ class App extends Component {
   }
   render() {
     const { user } = this.props;
-
-    console.log("this.props accessible from app.js: ", this.props);
-    console.log("this.user accessible from app.js: ", this.user);
-    console.log("user accessible from app.js: ", user);
+    console.log("user object from App.js: ", user);
+    console.log("this.props accessible from App.js: ", this.props);
 
     return (
       <Router>
         <div>
           <Fragment>
             <Wrapper>
-              <div className="container">
+              <div className="container-fluid outer">
                 <Navbar />
               </div>
               <div className="container">
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route exact path="/create" component={CreateUserForm} />
-                  <Route exact path="/login" component={LoginForm} />
                   <Route exact path="/dashboard" component={Dashboard} />
                   <Route path="/:artist" component={Artist} />
                 </Switch>
               </div>
-              <div className="container">
-                <Footer />
+              <div className="container-fluid outer">
+                <Footer {...this.props} />
               </div>
             </Wrapper>
           </Fragment>

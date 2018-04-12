@@ -59,10 +59,15 @@ class CreateUserForm extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container"
+        style={{ paddingBottom: "100px"}}>
+        <div className="jumbotron">
+          <h2><span className="align-middle">Create An Artist Profile</span></h2>
+          <h4>Create an artist profile and submit your work to the gallery!  Gallery-Curator is a curated gallery experience and not all submissions will be imediately displayed.  Contact us at <a href="mailto:goodnight.ian@gmail.com">gallery-curator@gmail.com</a> with any questions reguarding our selection process.</h4>
+        </div>
         <Form onSubmit={this.handleSubmit}>
-          <div className="container">
-           <div className="container">
+          <div className="container-fluid">
+           <div className="container-fluid">
               <FormGroup>
                 <Label for="username">Username</Label>
                  <Input
@@ -140,13 +145,15 @@ class CreateUserForm extends Component {
                   id="url"
                 />
               </FormGroup>
-              <Button 
-                color="primary"
-                size="lg"
-                type="submit"
-                block
-                  >Submit
-              </Button>
+              <div>
+                <Button 
+                  color="primary"
+                  size="lg"
+                  type="submit"
+                  block
+                    >Submit
+                </Button>
+              </div>
             </div>
           </div>
         </Form>

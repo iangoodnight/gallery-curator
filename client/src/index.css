@@ -4,3 +4,12 @@ body {
   font-family: sans-serif;
   background-color: #A2A2A2;
 }
+
+.outer {
+	padding: 0px;
+}
+
+.inner {
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}

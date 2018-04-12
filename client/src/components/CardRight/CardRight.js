@@ -17,7 +17,7 @@ const CardRight = props => (
             <h4 className="mb-40">
               {props.artist.bio}
             </h4>
-            <Link to={"/" + props.artist.username} className="btn btn-small">Button</Link>
+            <Link to={"/" + props.artist.username} className="btn btn-small">Gallery</Link>
           </div>
         </div>
         <div className="col-12 col-sm-6">

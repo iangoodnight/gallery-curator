@@ -5,20 +5,40 @@ import SubmitBtn from "../../components/Form";
 import DashJumbotron from "../../components/DashJumbotron";
 import Portfolio from "../../components/Portfolio";
 import Card from "../../components/Card";
-import { Form, FormGroup, Label, Input, FormFeedback, FormText, Button } from 'reactstrap';
+import { 
+  Form, 
+  FormGroup, 
+  Label, 
+  Input, 
+  FormFeedback, 
+  FormText, 
+  Button,
+  Modal, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter, 
+} from 'reactstrap';
 import { withUser } from '../../services/withUser';
 import API from "../../utils/API";
 
 class Dashboard extends Component {
 			
-	state = {
+	constructor(props) {
+    super(props);
+    this.state = {
+    modal: false,
+    backdrop: true,
 		user: null,
 		artist: null,
 		art: [],
 		src: "",
+    bio: "",
 		title: ""    
-  };
+    };
 
+    this.toggle = this.toggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
 
   componentDidMount() {
@@ -30,6 +50,13 @@ class Dashboard extends Component {
 		const id = this.props.user.id;
 		this.getArtist(id);
 	}
+
+
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
 
 	getArtist = id => {
 		API.getArtist(id)
@@ -81,6 +108,24 @@ class Dashboard extends Component {
     this.getArt(this.props.user.id); 
   }
 
+  handleUpdate = event => {
+    event.preventDefault();
+    const data = {
+      bio: this.state.bio
+    }
+    const id = this.props.user.id;
+    console.log('Saving data:', data);
+    API.put(id, data)
+      .then(res => { 
+        console.log("saved! ", data);
+        this.setState({
+          bio: ""
+        });
+      })
+      .catch(err => console.log("handleUpdate: ", err));
+    this.getArtist(this.props.user.id); 
+  }
+
 	render() {
 		const { user } = this.props;
 		const { artist } = this.state;
@@ -94,32 +139,46 @@ class Dashboard extends Component {
           		<DashJumbotron userName={artist.username} name={artist.name}/>
 	        	</div>
             <div className="container">
-            	<div className="row">
-            		<div className="col-12">
-            			<h4>Username: {artist.username}</h4>
-            		</div>
-            	</div>
-            	<div className="row">
-            		<div className="col-12">
-            			<h4>Email: {artist.email}</h4>
-            		</div>
-            	</div>
-            	<div className="row">
-            		<div className="col-12">
-            			<h4>Bio: {artist.bio}</h4>
-            		</div>
-            	</div>
-            	<div className="row">
-            		<div className="col-12">
-            			<h4>Url: {artist.url}</h4>
-            		</div>
-            	</div>         	
+              <div>
+                <ul>
+                  <li>
+                  	<div className="row">
+                  		<div className="col-8">
+                  			<h4>Username: {artist.username}</h4>
+                  		</div>
+                      <div className="col-4" style={{padding: "5px"}}>
+                        <button className="btn btn-sm btn-secondary disabled">Update</button>
+                      </div>
+                	</div>
+                  </li>
+                  <li>
+                	<div className="row">
+                		<div className="col-8">
+                			<h4>Email: {artist.email}</h4>
+                		</div>
+                    <div className="col-4" style={{padding: "5px"}}>
+                      <button className="btn btn-sm btn-secondary disabled">Update</button>
+                    </div>
+                	</div>
+                  </li>
+                  <li>
+                	<div className="row">
+                		<div className="col-8">
+                			<h4>Bio: {artist.bio}</h4>
+                		</div>
+                    <div className="col-4" style={{padding: "5px"}}>
+                      <button onClick={this.toggle} className="btn btn-sm btn-primary">Update</button>
+                    </div>
+                	</div>
+                  </li>       	
+                </ul>
+              </div>
             </div>
             <div className="container">
             	{this.state.art.length ? (
             		<Portfolio>
 		            		{this.state.art.map(art => (
-		            			<Card image={art} />
+		            			<Card image={art} key={art.src} />
 		            		))}
 		            </Portfolio>
             		) : (
@@ -155,13 +214,15 @@ class Dashboard extends Component {
 			            <FormFeedback>You will not be able to see this</FormFeedback>
 			            <FormText></FormText>
 			          </FormGroup>
-				        <Button 
-				          color="primary"
-				          size="lg"
-				          type="submit"
-				          block
-				          >Submit
-				        </Button>
+                <div style={{paddingBottom: "100px"}}>
+  				        <Button 
+  				          color="primary"
+  				          size="lg"
+  				          type="submit"
+  				          block
+  				          >Submit
+  				        </Button>
+                </div>
           		</Form>
           	</div>
  					</div>
@@ -172,6 +233,42 @@ class Dashboard extends Component {
         {!user &&
           <div>Hey! I don't recognize you! Register and log in using the link above</div>
         }
+        <Modal isOpen={this.state.modal} 
+          toggle={this.toggle} 
+          className={this.props.className} 
+          backdrop={this.state.backdrop}>
+          <ModalHeader toggle={this.toggle}>Login</ModalHeader>
+          <ModalBody>
+            <Form>
+              <FormGroup>
+                <Label for="bio">Bio</Label>
+                <Input
+                  value={this.state.bio}
+                  onChange={this.handleInputChange} 
+                  type="textarea" 
+                  name="bio"
+                  id="bio" 
+                />
+              </FormGroup>
+                <Button
+                  onClick={this.toggle}
+                  color="primary"
+                  size="sm"
+                  type="submit"
+                  block
+                    >Submit
+                </Button>
+            </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" 
+              onClick={this.toggle}
+            >Cancel
+            </Button>
+          </ModalFooter>
+        </Modal>
+
+
       </Fragment>
     );
   }

@@ -1,4 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Button, 
+  Modal, 
+  ModalHeader, 
+  ModalBody, 
+  ModalFooter
+} from 'reactstrap';
 import "./Card.css";
 
 const Card = props => (
@@ -14,7 +22,7 @@ const Card = props => (
 			<div className="p-30 ph-30">
 				<h2 className="p-30 ph-30">{props.image.title}</h2>
 				<p></p>
-				<button data-cp-url={props.image.src}>Buy Now</button>
+				<button className="btn btn-primary" data-cp-url={props.image.src}>Buy Now</button>
 			</div>
 		</div>
 	</div>

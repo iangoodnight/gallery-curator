@@ -53,6 +53,7 @@ router.route("/")
 // Matched with "api/:id"
 router
 	.route("/:id")
+  .put(userController.update)
 	.get(userController.findById);
 
 // Matched with "api/image"

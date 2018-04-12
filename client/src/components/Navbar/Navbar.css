@@ -6,3 +6,9 @@
 .banner {
 	height: 80px;
 }
+
+.login-button {
+	background-color: Transparent;
+	border: none;
+	font-size: 12px;
+}

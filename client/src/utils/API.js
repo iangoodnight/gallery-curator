@@ -9,6 +9,10 @@ export default {
   	return axios.post("/api/image", data);
   },
 
+  put: function(id, data) {
+    return axios.put("/api/" + id + "/", data)
+  },
+
   validate: function(data) {
     return axios.post("api/auth", data)
   },

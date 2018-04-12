@@ -6,6 +6,7 @@ import {
   CarouselIndicators,
   CarouselCaption
 } from 'reactstrap';
+import Shoutbox from "../../components/Shoutbox";
 import CardRight from "../../components/CardRight";
 import CardLeft from "../../components/CardLeft";
 import { withUser } from '../../services/withUser';
@@ -104,7 +105,10 @@ class Home extends Component {
     let position = true;
 
 		return (
-			<div style={{border: "1px solid black"}}>
+			<div style={{
+				borderRight: "1px solid black",
+				borderLeft: "1px solid black",
+				borderBottom: "1px solid black"}}>
 	      <Carousel
 	        activeIndex={activeIndex}
 	        next={this.next}
@@ -115,6 +119,7 @@ class Home extends Component {
 	        <CarouselControl direction="prev" directionText="Previous" onClickHandler={this.previous} />
 	        <CarouselControl direction="next" directionText="Next" onClickHandler={this.next} />
 	      </Carousel>
+	      <Shoutbox />
 	      {this.state.artists.length ? (
 	      	<div>
 		      	{this.state.artists.map((artist, i) => {
