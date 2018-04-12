@@ -8,7 +8,6 @@ import { withUser, update } from "./services/withUser";
 import Home from "./pages/Home";
 import Artist from "./pages/Artist";
 import CreateUserForm from "./pages/CreateUserForm";
-import LoginForm from "./pages/LoginForm";
 import Dashboard from "./pages/Dashboard";
 import Footer from "./components/Footer";
 
